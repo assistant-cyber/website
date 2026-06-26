@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 type Variant = "fadeUp" | "fadeIn" | "fadeLeft" | "fadeRight" | "scaleUp";
 
@@ -22,34 +22,41 @@ interface AnimateProps {
 
 const variants = {
   fadeUp: {
-    hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 40 },
   },
   fadeIn: {
-    hidden: { opacity: 0 },
     visible: { opacity: 1 },
+    hidden: { opacity: 0 },
   },
   fadeLeft: {
-    hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: -40 },
   },
   fadeRight: {
-    hidden: { opacity: 0, x: 40 },
     visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: 40 },
   },
   scaleUp: {
-    hidden: { opacity: 0, scale: 0.94 },
     visible: { opacity: 1, scale: 1 },
+    hidden: { opacity: 0, scale: 0.94 },
   },
 };
 
 /**
  * Scroll-triggered entrance animation wrapper.
  *
- * SSR-safe: pre-hydration, renders a plain visible div so the user
- * always sees the content even if JS fails. After hydration, the
- * element is initially hidden and animates in the first time it
- * scrolls into view (`whileInView`).
+ * Solves the "flash of hidden content" problem on client-side navigation:
+ *
+ * - Pre-hydration: plain visible div (no animation, always shown)
+ * - Post-hydration: motion.div with `initial="visible"` (matches SSR)
+ * - The element stays visible by default — no IntersectionObserver race
+ *   condition on initial mount that would cause a brief flash of hidden
+ *   content between the page mounting and the observer firing
+ *
+ * Trade-off: this component no longer animates elements into view on scroll
+ * (because they start visible). The PageTransition wrapper provides the
+ * overall route-change motion instead.
  */
 export default function Animate({
   children,
@@ -67,7 +74,7 @@ export default function Animate({
     setMounted(true);
   }, []);
 
-  // Pre-hydration: render plain div (fully visible, no animation)
+  // Pre-hydration: render plain div (fully visible)
   if (!mounted) {
     return (
       <div className={className} style={style}>
@@ -79,9 +86,8 @@ export default function Animate({
   return (
     <motion.div
       variants={variants[variant]}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount: threshold }}
+      initial="visible"
+      animate="visible"
       transition={{
         duration,
         delay,

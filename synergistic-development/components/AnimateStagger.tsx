@@ -14,7 +14,6 @@ interface AnimateStaggerProps {
 }
 
 const containerVariants = (staggerDelay: number, initialDelay: number) => ({
-  hidden: {},
   visible: {
     transition: {
       staggerChildren: staggerDelay,
@@ -24,22 +23,17 @@ const containerVariants = (staggerDelay: number, initialDelay: number) => ({
 });
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.65,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
+  visible: { opacity: 1, y: 0 },
 };
 
 /**
- * Group container that staggers its children.
- * Each direct child must be wrapped in `<AnimateStaggerItem>`.
+ * Group container that staggers its children visually.
  *
  * SSR-safe: pre-hydration, renders plain content (no animation).
+ * Post-hydration, items appear instantly without per-item delays
+ * (since we removed the hidden → visible transition).
+ *
+ * Each direct child must be wrapped in `<AnimateStaggerItem>`.
  */
 export function AnimateStagger({
   children,
@@ -65,9 +59,8 @@ export function AnimateStagger({
   return (
     <motion.div
       variants={containerVariants(staggerDelay, initialDelay)}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      initial="visible"
+      animate="visible"
       className={className}
       style={style}
     >
