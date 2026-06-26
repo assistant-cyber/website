@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Purchase Request Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #1D9E75;
+      --green-dark:   #15785A;
+      --green-light:  #E6F7F2;
+      --bg:           #F5F7FA;
+      --card:         #FFFFFF;
+      --border:       #E5E7EB;
+      --border-focus: #1D9E75;
+      --txt1:         #111827;
+      --txt2:         #374151;
+      --txt3:         #6B7280;
+      --txt4:         #9CA3AF;
+      --error:        #EF4444;
+      --error-bg:     #FEF2F2;
+      --error-border: #FCA5A5;
+      --urgent:       #DC2626;
+      --urgent-bg:    #FEF2F2;
+      --warn:         #D97706;
+      --warn-bg:      #FFFBEB;
+      --radius:       10px;
+      --shadow:       0 1px 3px rgba(0,0,0,.06), 0 0 0 1px #E5E7EB;
+    }
+
+    html { font-size: 15px; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--txt1);
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    /* ── Page header ──────────────────────────────────────────── */
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .site-header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 60px;
+      gap: 12px;
+    }
+    .logo {
+      width: 34px; height: 34px;
+      background: var(--green);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .site-title { font-size: 15px; font-weight: 700; color: var(--txt1); }
+    .site-subtitle { font-size: 13px; color: var(--txt3); margin-left: auto; }
+
+    /* ── Main layout ──────────────────────────────────────────── */
+    .main { max-width: 720px; margin: 0 auto; padding: 32px 16px 0; }
+
+    /* ── Card ─────────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 540px) { .card { padding: 28px 32px; } }
+
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Form grid ────────────────────────────────────────────── */
+    .form-grid { display: grid; gap: 18px; }
+    .form-grid-2 { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 480px) { .form-grid-2 { grid-template-columns: 1fr; } }
+
+    /* ── Field ────────────────────────────────────────────────── */
+    .field { display: flex; flex-direction: column; gap: 6px; }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--txt2);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .field label .req { color: var(--green); font-size: 14px; line-height: 1; }
+    .field .helper { font-size: 12px; color: var(--txt4); margin-top: -2px; }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--txt1);
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      appearance: none;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: var(--txt4); }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(29,158,117,.12);
+    }
+
+    .field input.has-error,
+    .field textarea.has-error { border-color: var(--error); }
+    .field input.has-error:focus,
+    .field textarea.has-error:focus { box-shadow: 0 0 0 3px rgba(239,68,68,.12); }
+
+    .field .error-msg {
+      font-size: 12px;
+      color: var(--error);
+      display: none;
+      align-items: center;
+      gap: 4px;
+    }
+    .field .error-msg.visible { display: flex; }
+
+    .field textarea { resize: vertical; min-height: 90px; line-height: 1.55; }
+    #itemDescription { min-height: 110px; }
+    #notes { min-height: 80px; }
+
+    /* ── Search type toggle ───────────────────────────────────── */
+    .search-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .search-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .search-card input[type=radio] { display: none; }
+    .search-card .sc-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .search-card .sc-body {}
+    .search-card .sc-title { font-size: 13px; font-weight: 600; color: var(--txt1); }
+    .search-card .sc-desc  { font-size: 12px; color: var(--txt3); margin-top: 2px; line-height: 1.4; }
+    .search-card.selected {
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+    .search-card.selected .sc-title { color: var(--green-dark); }
+
+    /* ── Priority toggle ──────────────────────────────────────── */
+    .priority-toggle { display: flex; gap: 0; }
+    .priority-toggle .pt-btn {
+      flex: 1;
+      padding: 10px 4px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--txt3);
+      background: #fff;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      transition: all .15s;
+      text-align: center;
+    }
+    .priority-toggle .pt-btn:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .priority-toggle .pt-btn:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
+    .priority-toggle .pt-btn + .pt-btn   { border-left: none; }
+    .priority-toggle .pt-btn:hover { background: #F9FAFB; color: var(--txt1); }
+    .priority-toggle .pt-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+      z-index: 1;
+    }
+    .priority-toggle .pt-btn.active-urgent {
+      background: var(--urgent);
+      border-color: var(--urgent);
+      color: #fff;
+    }
+
+    /* ── Submit button ────────────────────────────────────────── */
+    .submit-area { margin-top: 8px; }
+    .btn-submit {
+      width: 100%;
+      padding: 15px 28px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .15s, transform .1s;
+    }
+    .btn-submit:hover  { background: var(--green-dark); }
+    .btn-submit:active { transform: scale(.99); }
+    .btn-submit:disabled { background: #9CA3AF; cursor: not-allowed; transform: none; }
+
+    /* ── Loading view ─────────────────────────────────────────── */
+    #loadingView {
+      display: none;
+      text-align: center;
+    }
+    #loadingView.active { display: block; }
+
+    .loading-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 56px 32px;
+      max-width: 420px;
+      margin: 32px auto;
+    }
+
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid var(--green-light);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 22px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-headline {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--txt1);
+      margin-bottom: 6px;
+    }
+    .loading-sub {
+      font-size: 13px;
+      color: var(--txt3);
+    }
+
+    /* ── Success view ─────────────────────────────────────────── */
+    #successView { display: none; }
+    #successView.active { display: block; }
+
+    .success-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 40px 32px 32px;
+      max-width: 600px;
+      margin: 32px auto;
+    }
+
+    .success-icon-wrap {
+      width: 64px; height: 64px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      animation: pop .4s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-icon-wrap svg { width: 32px; height: 32px; stroke: var(--green); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    .success-title {
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+      color: var(--txt1);
+      margin-bottom: 4px;
+    }
+    .success-sub {
+      font-size: 14px;
+      color: var(--txt3);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    /* Product result card */
+    .product-result {
+      background: #F9FAFB;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin-bottom: 20px;
+    }
+    .pr-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--txt4);
+      margin-bottom: 10px;
+    }
+    .pr-name { font-size: 17px; font-weight: 700; color: var(--txt1); margin-bottom: 2px; }
+    .pr-supplier { font-size: 13px; color: var(--txt3); margin-bottom: 16px; }
+
+    .pr-prices {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .pr-price-block .pp-label { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--txt4); }
+    .pr-price-block .pp-value { font-size: 26px; font-weight: 800; color: var(--green); line-height: 1.2; }
+
+    .pr-meta { display: flex; flex-direction: column; gap: 6px; }
+    .pr-meta-row { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; }
+    .pr-meta-row .pm-label { width: 90px; flex-shrink: 0; color: var(--txt4); }
+    .pr-meta-row .pm-value { color: var(--txt2); word-break: break-all; }
+    .pr-meta-row a { color: var(--green); text-decoration: none; }
+    .pr-meta-row a:hover { text-decoration: underline; }
+
+    .pr-notes {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: var(--warn-bg);
+      border: 1px solid #FDE68A;
+      border-radius: 7px;
+      font-size: 12px;
+      color: var(--warn);
+      line-height: 1.5;
+    }
+
+    .success-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .btn-sheet {
+      width: 100%;
+      padding: 13px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      border: 1.5px solid rgba(29,158,117,.25);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background .15s;
+    }
+    .btn-sheet:hover { background: #CFF0E5; }
+    .btn-reset {
+      width: 100%;
+      padding: 13px;
+      background: transparent;
+      color: var(--txt3);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color .15s, border-color .15s;
+    }
+    .btn-reset:hover { color: var(--txt1); border-color: #9CA3AF; }
+
+    /* ── Error banner ─────────────────────────────────────────── */
+    .error-banner {
+      background: var(--error-bg);
+      border: 1.5px solid var(--error-border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      font-size: 14px;
+      color: #B91C1C;
+      margin-bottom: 16px;
+      display: none;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .error-banner.visible { display: flex; }
+    .error-banner svg { width: 18px; height: 18px; flex-shrink: 0; fill: #EF4444; margin-top: 1px; }
+
+    /* ── Timeline ──────────────────────────────────────────────── */
+    .timeline { margin: 0 0 24px; display: flex; flex-direction: column; }
+    .tl-item {
+      display: flex;
+      gap: 14px;
+      position: relative;
+      padding-bottom: 18px;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 16px; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .tl-item.tl-done:not(:last-child)::before { background: var(--green-light); }
+    .tl-dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      border: 2px solid var(--border);
+      background: #fff;
+      position: relative; z-index: 1;
+    }
+    .tl-done .tl-dot    { background: var(--green); border-color: var(--green); }
+    .tl-done .tl-dot::after {
+      content: ''; position: absolute; inset: 3px;
+      background: white; border-radius: 50%;
+    }
+    .tl-pending .tl-dot { background: #F3F4F6; border-color: #D1D5DB; }
+    .tl-title { font-size: 13px; font-weight: 600; color: var(--txt1); }
+    .tl-done .tl-title    { color: var(--green-dark); }
+    .tl-pending .tl-title { color: var(--txt3); }
+    .tl-desc  { font-size: 12px; color: var(--txt4); margin-top: 1px; line-height: 1.4; }
+
+    /* ── Misc ─────────────────────────────────────────────────── */
+    .page-notice {
+      font-size: 13px;
+      color: var(--txt3);
+      text-align: center;
+      margin-top: 12px;
+    }
+    .page-notice a { color: var(--green); text-decoration: none; font-weight: 500; }
+    .page-notice a:hover { text-decoration: underline; }
+
+    input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: .5; }
+  </style>
+</head>
+
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </div>
+    <span class="site-title">Purchase Request Portal</span>
+    <span class="site-subtitle">Internal Tool</span>
+  </div>
+</header>
+
+<!-- ── Main ────────────────────────────────────────────────────────────── -->
+<div class="main">
+
+  <!-- ═══════════ FORM VIEW ═══════════ -->
+  <div id="formView">
+
+    <div id="errorBanner" class="error-banner" role="alert">
+      <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+      <span id="errorBannerText"></span>
+    </div>
+
+    <form id="requestForm" novalidate>
+
+      <!-- 1 · Requester Information -->
+      <div class="card">
+        <div class="card-title">Requester Information</div>
+        <div class="form-grid form-grid-2">
+          <div class="field">
+            <label for="fullName">Full Name <span class="req">*</span></label>
+            <input type="text" id="fullName" name="fullName" placeholder="Jane Smith" autocomplete="name" />
+            <span class="error-msg" id="err-fullName">
+              <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+              Full name is required
+            </span>
+          </div>
+          <div class="field">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="jane@company.com" autocomplete="email" />
+            <span class="error-msg" id="err-email">A valid email address is required</span>
+          </div>
+        </div>
+        <div class="form-grid" style="margin-top:18px;">
+          <div class="field">
+            <label for="project">Project / Department <span class="req">*</span></label>
+            <input type="text" id="project" name="project" placeholder="e.g. Site A — Residential Block, Warehouse Fit-out, Maintenance" />
+            <span class="error-msg" id="err-project">Project or department is required</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 · What do you need? -->
+      <div class="card">
+        <div class="card-title">What Do You Need?</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="itemDescription">Item Description <span class="req">*</span></label>
+            <p class="helper">Be specific — include size, material, grade, brand, or part number if known.</p>
+            <textarea id="itemDescription" name="itemDescription"
+              placeholder="e.g. M10 × 50mm stainless steel hex bolts, grade A2 — need ~200 for deck fixings; OR DeWalt 20V MAX cordless drill driver kit with two batteries"></textarea>
+            <span class="error-msg" id="err-itemDescription">Item description is required</span>
+          </div>
+        </div>
+        <div class="form-grid form-grid-2" style="margin-top:18px;">
+          <div class="field">
+            <label for="quantity">Quantity <span class="req">*</span></label>
+            <input type="number" id="quantity" name="quantity" min="1" placeholder="e.g. 200" />
+            <span class="error-msg" id="err-quantity">A valid quantity is required</span>
+          </div>
+          <div class="field">
+            <label for="budgetCap">Budget Cap per Item <span style="font-weight:400;color:var(--txt4)">(optional)</span></label>
+            <input type="text" id="budgetCap" name="budgetCap" placeholder="e.g. $15 or $200 total" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 · Sourcing Preferences -->
+      <div class="card">
+        <div class="card-title">Sourcing Preferences</div>
+
+        <div class="field" style="margin-bottom:18px;">
+          <label>Search Type</label>
+          <div class="search-toggle" id="searchTypeToggle">
+            <label class="search-card selected" id="scExact">
+              <input type="radio" name="searchType" value="exact" checked />
+              <span class="sc-icon">🎯</span>
+              <span class="sc-body">
+                <span class="sc-title">Find exact item</span>
+                <span class="sc-desc">Match this specific product, brand, or spec</span>
+              </span>
+            </label>
+            <label class="search-card" id="scBest">
+              <input type="radio" name="searchType" value="best" />
+              <span class="sc-icon">💰</span>
+              <span class="sc-body">
+                <span class="sc-title">Best / cheapest option</span>
+                <span class="sc-desc">Find the best value for this type of product</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="preferredSupplier">Preferred Supplier <span style="font-weight:400;color:var(--txt4)">(optional)</span></label>
+          <input type="text" id="preferredSupplier" name="preferredSupplier"
+            placeholder="e.g. Home Depot, Amazon Business, Grainger, Fastenal" />
+        </div>
+      </div>
+
+      <!-- 4 · Schedule & Priority -->
+      <div class="card">
+        <div class="card-title">Schedule &amp; Priority</div>
+        <div class="form-grid form-grid-2">
+          <div class="field">
+            <label for="neededBy">Needed By <span style="font-weight:400;color:var(--txt4)">(optional)</span></label>
+            <input type="date" id="neededBy" name="neededBy" />
+          </div>
+          <div class="field">
+            <label>Priority</label>
+            <div class="priority-toggle" id="priorityToggle">
+              <button type="button" class="pt-btn" data-value="Low">Low</button>
+              <button type="button" class="pt-btn active" data-value="Normal">Normal</button>
+              <button type="button" class="pt-btn" data-value="Urgent">🔴 Urgent</button>
+            </div>
+            <input type="hidden" id="priorityHidden" name="priority" value="Normal" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 · Notes -->
+      <div class="card">
+        <div class="card-title">Additional Notes</div>
+        <div class="field">
+          <textarea id="notes" name="notes"
+            placeholder="Any extra context — alternative products you'd accept, delivery address notes, special requirements, etc."></textarea>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="submit-area">
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          Submit Purchase Request
+        </button>
+        <p class="page-notice">
+          Requests are logged to
+          <a href="https://docs.google.com/spreadsheets/d/1JWlgYf-S8NZ5-EdoAXDxf0xi3gp7UjxF3KP72AsDAao/edit" target="_blank" rel="noopener">Google Sheets</a>
+          and reviewed by your manager.
+        </p>
+      </div>
+
+    </form>
+  </div><!-- /formView -->
+
+  <!-- ═══════════ LOADING VIEW ═══════════ -->
+  <div id="loadingView">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <div class="loading-headline">Submitting your request…</div>
+      <div class="loading-sub">Logging to Google Sheets</div>
+    </div>
+  </div><!-- /loadingView -->
+
+  <!-- ═══════════ SUCCESS VIEW ═══════════ -->
+  <div id="successView">
+    <div class="success-card">
+      <div class="success-icon-wrap">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="success-title">Request Submitted!</div>
+      <div class="success-sub">Your request has been logged. The AI agent will source the best product and notify your manager within 30 minutes.</div>
+
+      <!-- What happens next timeline -->
+      <div class="timeline">
+        <div class="tl-item tl-done">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Request logged</div>
+            <div class="tl-desc">Saved to Google Sheets — row <span id="res-row-num">#—</span></div>
+          </div>
+        </div>
+        <div class="tl-item tl-pending">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">AI sourcing agent runs</div>
+            <div class="tl-desc">Searches Home Depot, Grainger, Amazon &amp; more for the best price</div>
+          </div>
+        </div>
+        <div class="tl-item tl-pending">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Manager notified</div>
+            <div class="tl-desc">Email sent with sourced product details and one-click approve / reject</div>
+          </div>
+        </div>
+        <div class="tl-item tl-pending">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">You’ll be notified</div>
+            <div class="tl-desc">Confirmation email once approved or rejected</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <a id="sheetLink" href="https://docs.google.com/spreadsheets/d/1JWlgYf-S8NZ5-EdoAXDxf0xi3gp7UjxF3KP72AsDAao/edit"
+           class="btn-sheet" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+          View in Google Sheets
+        </a>
+        <button type="button" class="btn-reset" id="resetBtn">Submit Another Request</button>
+      </div>
+    </div>
+  </div><!-- /successView -->
+
+</div><!-- /main -->
+
+<!-- ── Scripts ──────────────────────────────────────────────────────────── -->
+<script>
+'use strict';
+
+// ── DOM refs ────────────────────────────────────────────────────────────
+
+const formView    = document.getElementById('formView');
+const loadingView = document.getElementById('loadingView');
+const successView = document.getElementById('successView');
+const form        = document.getElementById('requestForm');
+const submitBtn   = document.getElementById('submitBtn');
+const errorBanner = document.getElementById('errorBanner');
+const errorBannerText = document.getElementById('errorBannerText');
+const resetBtn    = document.getElementById('resetBtn');
+
+// ── Search type toggle ──────────────────────────────────────────────────
+
+document.querySelectorAll('#searchTypeToggle input[type=radio]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    document.querySelectorAll('.search-card').forEach(c => c.classList.remove('selected'));
+    radio.closest('.search-card').classList.add('selected');
+  });
+});
+
+// ── Priority toggle ──────────────────────────────────────────────────────
+
+const priorityBtns   = document.querySelectorAll('#priorityToggle .pt-btn');
+const priorityHidden = document.getElementById('priorityHidden');
+
+priorityBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    priorityBtns.forEach(b => { b.classList.remove('active', 'active-urgent'); });
+    const val = btn.dataset.value;
+    btn.classList.add(val === 'Urgent' ? 'active-urgent' : 'active');
+    priorityHidden.value = val;
+  });
+});
+
+// ── Validation ───────────────────────────────────────────────────────────
+
+const VALIDATORS = {
+  fullName:        v => v.trim().length > 0,
+  email:           v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+  project:         v => v.trim().length > 0,
+  itemDescription: v => v.trim().length > 0,
+  quantity:        v => !isNaN(v) && parseFloat(v) > 0,
+};
+
+function setFieldError(id, hasError) {
+  const input = document.getElementById(id);
+  const err   = document.getElementById('err-' + id);
+  if (!input || !err) return;
+  if (hasError) {
+    input.classList.add('has-error');
+    err.classList.add('visible');
+  } else {
+    input.classList.remove('has-error');
+    err.classList.remove('visible');
+  }
+}
+
+function validateForm() {
+  let valid = true;
+  for (const [id, check] of Object.entries(VALIDATORS)) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    const isOk = check(el.value);
+    setFieldError(id, !isOk);
+    if (!isOk) valid = false;
+  }
+  return valid;
+}
+
+// Clear errors on input
+document.querySelectorAll('#requestForm input, #requestForm textarea').forEach(el => {
+  el.addEventListener('input', () => {
+    el.classList.remove('has-error');
+    const err = document.getElementById('err-' + el.id);
+    if (err) err.classList.remove('visible');
+  });
+});
+
+// ── Show/hide views ───────────────────────────────────────────────────────
+
+function showForm() {
+  formView.style.display = 'block';
+  loadingView.classList.remove('active');
+  successView.classList.remove('active');
+}
+
+function showLoading() {
+  formView.style.display = 'none';
+  loadingView.classList.add('active');
+  successView.classList.remove('active');
+}
+
+function showSuccess(data) {
+  formView.style.display = 'none';
+  loadingView.classList.remove('active');
+  successView.classList.add('active');
+
+  if (data.rowNumber) {
+    document.getElementById('res-row-num').textContent = '#' + data.rowNumber;
+  }
+  if (data.sheetUrl) {
+    document.getElementById('sheetLink').href = data.sheetUrl;
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showError(msg) {
+  formView.style.display    = 'block';
+  loadingView.classList.remove('active');
+  successView.classList.remove('active');
+  errorBannerText.textContent = msg;
+  errorBanner.classList.add('visible');
+  errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ── Form submission ───────────────────────────────────────────────────────
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  errorBanner.classList.remove('visible');
+
+  if (!validateForm()) {
+    // Scroll to first error
+    const first = form.querySelector('.has-error');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  const payload = {
+    fullName:          document.getElementById('fullName').value.trim(),
+    email:             document.getElementById('email').value.trim(),
+    project:           document.getElementById('project').value.trim(),
+    itemDescription:   document.getElementById('itemDescription').value.trim(),
+    quantity:          document.getElementById('quantity').value.trim(),
+    budgetCap:         document.getElementById('budgetCap').value.trim(),
+    searchType:        document.querySelector('input[name=searchType]:checked')?.value || 'best',
+    preferredSupplier: document.getElementById('preferredSupplier').value.trim(),
+    neededBy:          document.getElementById('neededBy').value,
+    priority:          document.getElementById('priorityHidden').value,
+    notes:             document.getElementById('notes').value.trim(),
+  };
+
+  submitBtn.disabled = true;
+  showLoading();
+
+  try {
+    const res = await fetch('/api/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+      // 3-minute timeout
+      signal:  AbortSignal.timeout(180_000),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({ error: `Server error (${res.status})` }));
+      throw new Error(errData.error || `Server error (${res.status})`);
+    }
+
+    const data = await res.json();
+    showSuccess(data);
+
+  } catch (err) {
+    const msg = err.name === 'TimeoutError'
+      ? 'The request timed out. The agent may still be running — check Google Sheets in a minute.'
+      : (err.message || 'An unexpected error occurred. Please try again.');
+    showError(msg);
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+// ── Reset ─────────────────────────────────────────────────────────────────
+
+resetBtn.addEventListener('click', () => {
+  form.reset();
+  // Reset toggles to defaults
+  document.querySelectorAll('.search-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('scExact').classList.add('selected');
+  priorityBtns.forEach(b => { b.classList.remove('active', 'active-urgent'); });
+  document.querySelector('[data-value="Normal"]').classList.add('active');
+  priorityHidden.value = 'Normal';
+  errorBanner.classList.remove('visible');
+  showForm();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,487 @@
+@import "tailwindcss";
+
+/* =============================================================
+   Synergistic Development — Design System
+   Global CSS custom properties + Tailwind v4 theme tokens
+   ============================================================= */
+
+html {
+  /* Native smooth scroll for anchor links (#id jumps) — no Lenis */
+  scroll-behavior: smooth;
+  /* Account for the fixed nav (72px) when jumping to anchor */
+  scroll-padding-top: 100px;
+}
+
+:root {
+  /* Colors */
+  --color-ink:        #1a1a1a;
+  --color-ash:        #4a4a4a;
+  --color-slate:      #888888;
+  --color-sand:       #e0d8cc;
+  --color-linen:      #f5f2ee;
+  --color-cream:      #faf9f7;
+  --color-white:      #ffffff;
+  --color-bronze:     #b8965a;
+  --color-cognac:     #8a6e38;
+
+  /* Typography */
+  --font-display:     var(--font-cormorant), Georgia, serif;
+  --font-body:        var(--font-inter), system-ui, sans-serif;
+
+  /* Spacing */
+  --section-gap:      clamp(80px, 10vw, 140px);
+  --page-max:         1320px;
+  --page-padding:     clamp(20px, 5vw, 80px);
+
+  /* Shapes — refined, not bubbly */
+  --radius-card:      4px;
+  --radius-button:    2px;
+  --radius-image:     2px;
+
+  /* Shadows — extremely subtle */
+  --shadow-card:      0 1px 4px rgba(26,26,26,0.06), 0 8px 24px rgba(26,26,26,0.04);
+}
+
+/* Tailwind v4 theme binding — exposes tokens as utility classes */
+@theme inline {
+  --color-ink:        var(--color-ink);
+  --color-ash:        var(--color-ash);
+  --color-slate:      var(--color-slate);
+  --color-sand:       var(--color-sand);
+  --color-linen:      var(--color-linen);
+  --color-cream:      var(--color-cream);
+  --color-white:      var(--color-white);
+  --color-bronze:     var(--color-bronze);
+  --color-cognac:     var(--color-cognac);
+
+  --font-display:     var(--font-display);
+  --font-body:        var(--font-body);
+
+  --radius-card:      var(--radius-card);
+  --radius-button:    var(--radius-button);
+  --radius-image:     var(--radius-image);
+
+  --shadow-card:      var(--shadow-card);
+}
+
+/* =============================================================
+   Base
+   ============================================================= */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Prevent horizontal scroll on any viewport */
+html, body {
+  overflow-x: hidden;
+}
+
+/* =============================================================
+   Typography utilities — semantic helpers
+   ============================================================= */
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-bronze);
+}
+
+.body-prose {
+  max-width: 640px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-ash);
+}
+
+.body-prose-narrow {
+  max-width: 540px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-ash);
+}
+
+/* =============================================================
+   Image hover — inset border outline trick for project tiles
+   ============================================================= */
+
+.project-tile {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  transition: border-color 300ms ease;
+  pointer-events: none;
+}
+
+.project-tile:hover::after {
+  inset: 8px;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+.project-tile .project-overlay {
+  transition: background-color 300ms ease;
+}
+
+.project-tile:hover .project-overlay {
+  background-color: rgba(20, 20, 20, 0.6);
+}
+
+/* =============================================================
+   Selection
+   ============================================================= */
+
+::selection {
+  background: var(--color-bronze);
+  color: var(--color-white);
+}
+
+/* =============================================================
+   Reduced motion
+   ============================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* =============================================================
+   Focus — accessible, restrained
+   ============================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--color-bronze);
+  outline-offset: 3px;
+}
+
+/* =============================================================
+   Footer link hover — pure CSS so footer stays Server Component
+   ============================================================= */
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 200ms ease;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+/* =============================================================
+   Anchor nav — hover underline + color shift
+   ============================================================= */
+
+.anchor-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 16px 0;
+  border-bottom: 2px solid transparent;
+  color: var(--color-ink);
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.anchor-link:hover {
+  color: var(--color-bronze);
+  border-bottom-color: var(--color-bronze);
+}
+
+/* =============================================================
+   Portfolio — filter fade + project card hover slide-up label
+   ============================================================= */
+
+@keyframes portfolioFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.portfolio-fade-in {
+  animation: portfolioFadeIn 300ms ease-out forwards;
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
+.project-card .project-image-wrap {
+  transition: opacity 400ms ease;
+}
+
+.project-card .project-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 20, 0);
+  transition: background-color 400ms ease;
+  pointer-events: none;
+}
+
+.project-card .project-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 28px 24px 20px;
+  background: linear-gradient(to top, rgba(20, 20, 20, 0.85) 0%, rgba(20, 20, 20, 0.4) 60%, transparent 100%);
+  color: #ffffff;
+  transform: translateY(8px);
+  opacity: 0.85;
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover .project-overlay {
+    background: rgba(20, 20, 20, 0.35);
+  }
+  .project-card:hover .project-label {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* On touch devices, always show the label */
+@media (hover: none) {
+  .project-card .project-label {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .project-card .project-overlay {
+    background: rgba(20, 20, 20, 0.2);
+  }
+}
+
+/* =============================================================
+   Neighborhood filter tab — active + hover
+   ============================================================= */
+
+.filter-tab {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
+  white-space: nowrap;
+}
+
+.filter-tab:hover {
+  color: var(--color-ink);
+}
+
+.filter-tab[aria-pressed="true"] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-bronze);
+}
+
+@media (max-width: 768px) {
+  .filter-tab {
+    padding: 14px 18px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* =============================================================
+   Neighborhood tag (Section 5) — small pill-style label
+   ============================================================= */
+
+.neighborhood-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-ash);
+  background: #ffffff;
+  border: 1px solid var(--color-sand);
+  border-radius: 2px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.neighborhood-tag:hover {
+  color: var(--color-ink);
+  border-color: var(--color-bronze);
+}
+
+/* =============================================================
+   Form fields — consistent label/input treatment
+   ============================================================= */
+
+.field-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ash);
+  margin-bottom: 8px;
+}
+
+.field-input,
+.field-textarea {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid var(--color-sand);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-ink);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  outline: none;
+}
+
+.field-input::placeholder,
+.field-textarea::placeholder {
+  color: #aaaaaa;
+}
+
+.field-input:focus,
+.field-textarea:focus {
+  border-color: var(--color-bronze);
+  box-shadow: 0 0 0 3px rgba(184, 150, 90, 0.12);
+}
+
+.field-input[aria-invalid="true"],
+.field-textarea[aria-invalid="true"] {
+  border-color: #c0392b;
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.6;
+}
+
+.field-error {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: #c0392b;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* =============================================================
+   Inquiry type card (radio)
+   ============================================================= */
+
+.inquiry-card {
+  display: block;
+  background: #ffffff;
+  border: 1px solid var(--color-sand);
+  border-radius: 2px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+.inquiry-card:hover {
+  border-color: var(--color-bronze);
+}
+
+.inquiry-card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.inquiry-card[data-selected="true"] {
+  border-color: var(--color-bronze);
+  background: var(--color-cream);
+}
+
+.inquiry-card input:focus-visible + .inquiry-card-content {
+  outline: 2px solid var(--color-bronze);
+  outline-offset: 2px;
+}
+
+/* =============================================================
+   Success fade-in
+   ============================================================= */
+
+@keyframes successFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-fade {
+  animation: successFade 300ms ease-out forwards;
+}
+
+/* =============================================================
+   Phase 9 — Reduced motion respect
+   Disables CSS transitions and animations (Framer Motion checks
+   this media query separately and skips its own animations too).
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

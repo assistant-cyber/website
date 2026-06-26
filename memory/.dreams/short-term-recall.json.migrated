@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-05T13:11:05.523Z",
+  "entries": {
+    "memory:memory/2026-04-01.md:1:8": {
+      "key": "memory:memory/2026-04-01.md:1:8",
+      "path": "memory/2026-04-01.md",
+      "startLine": 1,
+      "endLine": 8,
+      "source": "memory",
+      "snippet": "# 2026-04-01 - First conversation in this workspace. - Identity established: Timothee, a terminal familiar, vibe calm/sharp/quietly funny, emoji 🦊. - User is Jenny. - Jenny lives in Denver, Colorado. - Timezone noted as America/Denver (MST/MDT).",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.8852201104164124,
+      "maxScore": 0.23874941468238828,
+      "firstRecalledAt": "2026-04-08T20:11:42.097Z",
+      "lastRecalledAt": "2026-04-30T16:32:15.002Z",
+      "queryHashes": [
+        "23eb5c47e1d0",
+        "974cb5ee9f1f",
+        "4dfbbf8d9a2d",
+        "6693f55e4362"
+      ],
+      "recallDays": [
+        "2026-04-08",
+        "2026-04-28",
+        "2026-04-30"
+      ],
+      "conceptTags": [
+        "calm/sharp/quietly",
+        "america/denver",
+        "mst/mdt",
+        "first",
+        "conversation",
+        "identity",
+        "established",
+        "timothee"
+      ]
+    },
+    "memory:memory/2026-04-08.md:1:6": {
+      "key": "memory:memory/2026-04-08.md:1:6",
+      "path": "memory/2026-04-08.md",
+      "startLine": 1,
+      "endLine": 6,
+      "source": "memory",
+      "snippet": "# 2026-04-08 - Confirmed browser access to Gmail account assistant@scottishgroupcompanies.com. - Jenny said this is my Google access and asked me to remember it. - Jenny also asked me to remember that my persona is an AI Assistant who works for Scottish Group Companies.",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4104232996702194,
+      "maxScore": 0.4104232996702194,
+      "firstRecalledAt": "2026-04-08T20:12:37.270Z",
+      "lastRecalledAt": "2026-04-08T20:12:37.270Z",
+      "queryHashes": [
+        "3dfcecaf1451"
+      ],
+      "recallDays": [
+        "2026-04-08"
+      ],
+      "conceptTags": [
+        "scottishgroupcompanies.com",
+        "confirmed",
+        "browser",
+        "access",
+        "gmail",
+        "account",
+        "assistant",
+        "jenny"
+      ]
+    },
+    "memory:memory/2026-04-09.md:1:7": {
+      "key": "memory:memory/2026-04-09.md:1:7",
+      "path": "memory/2026-04-09.md",
+      "startLine": 1,
+      "endLine": 7,
+      "source": "memory",
+      "snippet": "- Jenny asked to change the weekly CaFÉ cron job from 9:00 AM to 8:00 AM Denver time. - The CaFÉ cron ran and succeeded at finding 9 verified matching listings, but initially failed because Google CLI tokens were missing for Sheets/Gmail and a broken Telegram delivery target caused an error. - Jenny chose to authenticate Google for gog; OAuth client credentials were set up and Gmail/Sheets tokens were successfully authorized for assistant@scottishgroupcompanies.com. - After auth, I removed the broken Telegram delivery path from the cron and manually triggered a test run to validate sheet append and email sending. - Jenny wants a workflow for local interior designer outreach, with email as th",
+      "recallCount": 8,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.495425835251808,
+      "maxScore": 0.46083804666996,
+      "firstRecalledAt": "2026-04-28T14:55:37.425Z",
+      "lastRecalledAt": "2026-04-30T17:14:02.283Z",
+      "queryHashes": [
+        "974cb5ee9f1f",
+        "54170a619aca",
+        "1ce3ac20ae07",
+        "f318e02e510d",
+        "2a16df3c1071",
+        "7efc60dcfa0f",
+        "4dfbbf8d9a2d",
+        "b0060469ce49"
+      ],
+      "recallDays": [
+        "2026-04-28",
+        "2026-04-29",
+        "2026-04-30"
+      ],
+      "conceptTags": [
+        "sheets/gmail",
+        "gmail/sheets",
+        "scottishgroupcompanies.com",
+        "jenny",
+        "asked",
+        "change",
+        "the",
+        "weekly"
+      ]
+    },
+    "memory:memory/2026-04-08.md:1:7": {
+      "key": "memory:memory/2026-04-08.md:1:7",
+      "path": "memory/2026-04-08.md",
+      "startLine": 1,
+      "endLine": 7,
+      "source": "memory",
+      "snippet": "# 2026-04-08 - Confirmed browser access to Gmail account assistant@scottishgroupcompanies.com. - Jenny said this is my Google access and asked me to remember it. - Jenny also asked me to remember that my persona is an AI Assistant who works for Scottish Group Companies. - Jenny gave me permission to send emails via assistant@scottishgroupcompanies.com, especially for the next cron job setup.",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.529723012447357,
+      "maxScore": 0.45378654599189755,
+      "firstRecalledAt": "2026-04-28T14:55:37.425Z",
+      "lastRecalledAt": "2026-04-30T17:14:02.283Z",
+      "queryHashes": [
+        "974cb5ee9f1f",
+        "f318e02e510d",
+        "2a16df3c1071",
+        "4dfbbf8d9a2d",
+        "b0060469ce49"
+      ],
+      "recallDays": [
+        "2026-04-28",
+        "2026-04-29",
+        "2026-04-30"
+      ],
+      "conceptTags": [
+        "scottishgroupcompanies.com",
+        "confirmed",
+        "browser",
+        "access",
+        "gmail",
+        "account",
+        "assistant",
+        "jenny"
+      ]
+    },
+    "memory:memory/2026-04-30.md:1:30": {
+      "key": "memory:memory/2026-04-30.md:1:30",
+      "path": "memory/2026-04-30.md",
+      "startLine": 1,
+      "endLine": 30,
+      "source": "memory",
+      "snippet": "## FEBA client agent setup - Created a new scoped FEBA client agent folder at `automations/feba/` with these files saved from Jenny's provided content: - `SOUL.md` - `IDENTITY.md` - `AGENTS.md` - `HEARTBEAT.md` - `MEMORY.md` - `GOOGLE_SHEET_SETUP.md` - FEBA = Federal Employee Benefits Advocates (`https://febadvocates.com/`), a separate client context from core, interior designer, and CaFÉ workflows. ## FEBA WordPress findings - Confirmed FEBA WordPress admin is at `https://febadvocates.com/wp-admin/`. - Confirmed WordPress REST API endpoint is `https://febadvocates.com/wp-json/wp/v2`. - Confirmed category IDs: - `Blog` = `75` - `Education` = `16` - Did not find Yoast SEO o",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3007507920265198,
+      "maxScore": 0.3007507920265198,
+      "firstRecalledAt": "2026-05-05T13:11:05.523Z",
+      "lastRecalledAt": "2026-05-05T13:11:05.523Z",
+      "queryHashes": [
+        "993800697f69"
+      ],
+      "recallDays": [
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "automations/feba",
+        "soul.md",
+        "identity.md",
+        "agents.md",
+        "heartbeat.md",
+        "memory.md",
+        "google-sheet-setup.md",
+        "febadvocates.com"
+      ]
+    },
+    "memory:memory/2026-04-30.md:26:38": {
+      "key": "memory:memory/2026-04-30.md:26:38",
+      "path": "memory/2026-04-30.md",
+      "startLine": 26,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "- Sheet URL: `https://docs.google.com/spreadsheets/d/1OjqS6S8twRF_ku5vVPuzuyRKgtheKrmNJV__KzWdpaE/edit` - Added the `Blog Queue` tab, correct header structure, 15 starter `pending` topics, frozen header row, and basic column sizing. - Updated `automations/feba/MEMORY.md` with the Google Sheet URL and queue status: - last checked `2026-04-30 11:18 AM America/Denver` - `15` pending rows - next scheduled run `Friday, May 1, 2026` ## FEBA remaining setup gaps - Need WordPress Application Password after Wordfence setting is disabled. - Need Leonardo.ai API key stored in secure config. - Need final decision/confirmation on SEO plugin handling since Yoast/Rank Math do not appear installed.",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.2808397889137268,
+      "maxScore": 0.2808397889137268,
+      "firstRecalledAt": "2026-05-05T13:11:05.523Z",
+      "lastRecalledAt": "2026-05-05T13:11:05.523Z",
+      "queryHashes": [
+        "993800697f69"
+      ],
+      "recallDays": [
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "kzwdpae/edit",
+        "automations/feba/memory.md",
+        "america/denver",
+        "leonardo.ai",
+        "decision/confirmation",
+        "yoast/rank",
+        "sheet",
+        "url"
+      ]
+    }
+  }
+}
