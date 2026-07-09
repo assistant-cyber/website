@@ -28,6 +28,7 @@ export const NAV_LINKS: ReadonlyArray<NavLink> = [
     label: "Services",
     href: "/services",
     children: [
+      { label: "Custom Builds and Remodels", href: "/services" },
       { label: "Independent Advisory", href: "/services/advisory" },
     ],
   },
