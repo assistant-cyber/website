@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title:
     "Independent Construction Advisory Services | Synergistic Development · Denver",
   description:
-    "Expert owner's representation and construction advisory services for Denver homeowners. Independent guidance before, during, and after construction — whether or not you hire us to build.",
+    "Expert owner's representation and construction advisory services for Denver homeowners. Independent guidance before, during, and after construction — whether or not you hire us to build.", alternates: { canonical: "/services/advisory" },
 };
 
 /* ------------------------------------------------------------------
