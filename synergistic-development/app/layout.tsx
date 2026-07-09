@@ -50,7 +50,7 @@ const organizationJsonLd = {
   url: SITE_URL,
   description:
     "Luxury custom home building, renovation, and independent construction advisory services in Denver, Colorado.",
-  email: "shane@sddenver.com",
+  image: `${SITE_URL}/images/site/heroes/01-hero-entry-living.jpg`, email: "shane@sddenver.com",
   telephone: "+1-303-910-7881",
   address: {
     "@type": "PostalAddress",
