@@ -112,7 +112,7 @@ function Hero() {
       >
         <div className="max-w-[640px]">
           <Animate variant="fadeUp" delay={0} duration={0.7}>
-            <SectionEyebrow className="!text-[#b8965a]">
+            <SectionEyebrow hero>
               Luxury Home Building · Renovation · Consulting
             </SectionEyebrow>
           </Animate>
@@ -601,7 +601,7 @@ function FeaturedProjects() {
             className="absolute bottom-8 left-8 text-white"
             aria-label={`View ${heroProject.title} in ${heroProject.eyebrow}`}
           >
-            <SectionEyebrow className="!text-[#b8965a]">{heroProject.eyebrow}</SectionEyebrow>
+            <SectionEyebrow hero>{heroProject.eyebrow}</SectionEyebrow>
             <p style={{ fontSize: 16, marginTop: 8 }}>{heroProject.title}</p>
           </Link>
         </div>
@@ -636,7 +636,7 @@ function FeaturedProjects() {
                 aria-hidden="true"
               />
               <div className="absolute bottom-6 left-6 text-white">
-                <SectionEyebrow className="!text-[#b8965a]">{project.eyebrow}</SectionEyebrow>
+                <SectionEyebrow hero>{project.eyebrow}</SectionEyebrow>
                 <p style={{ fontSize: 14, marginTop: 6 }}>{project.title}</p>
               </div>
             </Link>
