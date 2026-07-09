@@ -1,0 +1,8 @@
+{
+    "redirects": [
+          { "source": "/portfolio/bow-mar", "destination": "/portfolio", "statusCode": 301 },
+          { "source": "/portfolio/highlands", "destination": "/portfolio", "statusCode": 301 },
+          { "source": "/portfolio/washington-park", "destination": "/portfolio", "statusCode": 301 },
+          { "source": "/portfolio/cherry-creek", "destination": "/portfolio", "statusCode": 301 }
+    ]
+}
