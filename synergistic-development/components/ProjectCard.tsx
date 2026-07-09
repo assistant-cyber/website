@@ -108,7 +108,7 @@ export default function ProjectCard({
               fontSize: 10,
               fontWeight: 500,
               letterSpacing: "0.18em",
-              color: "var(--color-bronze)",
+              color: "#ffffff",
             }}
           >
             {project.location}
