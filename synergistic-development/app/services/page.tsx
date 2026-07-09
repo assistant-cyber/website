@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { SERVICES_PAGE } from "@/lib/constants";
 import { WARM_CREAM_BLUR } from "@/lib/blur";
 import SectionEyebrow from "@/components/SectionEyebrow";
@@ -13,13 +12,13 @@ import { AnimateStagger, AnimateStaggerItem } from "@/components/AnimateStagger"
 
 export const metadata: Metadata = {
   title:
-    "Services | Synergistic Development · Custom Homes, Renovations & Advisory · Denver",
+    "Services | Synergistic Development Â· Custom Homes, Renovations & Advisory Â· Denver",
   description:
     "Synergistic Development offers luxury custom home building, transformative renovations, and independent owner's representation services throughout Denver's most desirable neighborhoods.",
 };
 
 /* ------------------------------------------------------------------
-   Section wrapper — same rhythm as prior pages
+   Section wrapper â same rhythm as prior pages
    ------------------------------------------------------------------ */
 function Section({
   id,
@@ -58,7 +57,7 @@ function Section({
 }
 
 /* ================================================================
-   SECTION 1 — PAGE HERO (bottom-left aligned)
+   SECTION 1 â PAGE HERO (bottom-left aligned)
    ================================================================ */
 function PageHero() {
   return (
@@ -99,7 +98,7 @@ function PageHero() {
       >
         <div className="max-w-[640px]">
           <Animate variant="fadeUp" delay={0} duration={0.7}>
-            <SectionEyebrow className="!text-[#b8965a]">
+            <SectionEyebrow hero>
               {SERVICES_PAGE.hero.eyebrow}
             </SectionEyebrow>
           </Animate>
@@ -169,7 +168,7 @@ function IncludesList({ items }: { items: ReadonlyArray<string> }) {
 }
 
 /* ================================================================
-   SECTION 3 — CUSTOM HOMES (content left, sticky image right)
+   SECTION 3 â CUSTOM HOMES (content left, sticky image right)
    ================================================================ */
 function CustomHomes() {
   const ch = SERVICES_PAGE.customHomes;
@@ -230,7 +229,7 @@ function CustomHomes() {
           </div>
         </Animate>
 
-        {/* Image right — sticky on desktop */}
+        {/* Image right â sticky on desktop */}
         <Animate variant="scaleUp" delay={0.1}>
         <div className="order-1 lg:order-2 lg:sticky lg:top-[120px] self-start">
           <div
@@ -265,14 +264,14 @@ function CustomHomes() {
 }
 
 /* ================================================================
-   SECTION 4 — RENOVATIONS (image left, content right — reversed)
+   SECTION 4 â RENOVATIONS (image left, content right â reversed)
    ================================================================ */
 function Renovations() {
   const rn = SERVICES_PAGE.renovations;
   return (
     <Section id="renovations" bg="var(--color-white)">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-        {/* Image left — sticky on desktop */}
+        {/* Image left â sticky on desktop */}
         <Animate variant="scaleUp" delay={0.1}>
         <div className="lg:sticky lg:top-[120px] self-start order-1">
           <div
@@ -382,294 +381,89 @@ function Renovations() {
 }
 
 /* ================================================================
-   SECTION 5A — ADVISORY INTRO + pull quote band
+   SECTION 5A â INDEPENDENT CONSTRUCTION ADVISORY SERVICES
+   (header + 3 intro paragraphs + Learn More CTA)
+   The phase breakdown + comparison live on /services/advisory.
    ================================================================ */
-function AdvisoryIntro() {
-  const intro = SERVICES_PAGE.advisory.intro;
+function IndependentAdvisory() {
+  const ia = SERVICES_PAGE.independentAdvisory;
   return (
-    <>
-      <Section id="advisory" bg="var(--color-cream)" className="!pt-[var(--section-gap)]">
-        <Animate variant="fadeUp" className="text-center">
-          <SectionEyebrow>{intro.eyebrow}</SectionEyebrow>
-          <h2
-            className="font-display mx-auto"
-            style={{
-              fontWeight: 400,
-              fontSize: "clamp(34px, 5vw, 64px)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.015em",
-              marginTop: 20,
-              maxWidth: 800,
-              color: "var(--color-ink)",
-            }}
-          >
-            {intro.headlineTop}
-            <br />
-            <em className="italic font-normal">{intro.headlineEm}</em>
-          </h2>
-          <p
-            className="mx-auto"
-            style={{
-              fontSize: 20,
-              fontWeight: 300,
-              lineHeight: 1.7,
-              color: "var(--color-ash)",
-              maxWidth: 640,
-              margin: "24px auto 0",
-            }}
-          >
-            {intro.subhead}
-          </p>
-        </Animate>
-      </Section>
-
-      {/* Full-bleed dark pull-quote band */}
-      <section
-        style={{
-          background: "var(--color-ink)",
-          padding: "60px var(--page-padding)",
-        }}
-      >
-        <blockquote
-          className="font-display mx-auto text-center text-white"
-          style={{
-            fontStyle: "italic",
-            fontWeight: 400,
-            fontSize: "clamp(24px, 3vw, 36px)",
-            lineHeight: 1.5,
-            maxWidth: 760,
-          }}
-        >
-          &ldquo;Architects represent design. Contractors represent construction.
-          Real estate agents represent the transaction. Who represents{" "}
-          <em className="not-italic font-normal">you?</em>&rdquo;
-        </blockquote>
-        <p
-          className="text-center mt-7 uppercase"
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: 11,
-            fontWeight: 500,
-            letterSpacing: "0.18em",
-            color: "rgba(255,255,255,0.5)",
-          }}
-        >
-          {intro.quoteAttribution}
-        </p>
-      </section>
-    </>
-  );
-}
-
-/* ================================================================
-   SECTION 5B — ADVISORY 3-CARD BREAKDOWN
-   ================================================================ */
-function AdvisoryCards() {
-  return (
-    <Section bg="var(--color-white)" py="80px">
-      <div className="text-center">
-        <SectionEyebrow>Our Advisory Services</SectionEyebrow>
+    <Section
+      id="independent-advisory"
+      bg="var(--color-cream)"
+      className="!pt-[var(--section-gap)]"
+    >
+      <Animate variant="fadeUp" className="text-center">
+        <SectionEyebrow>{ia.eyebrow}</SectionEyebrow>
         <h2
           className="font-display mx-auto"
           style={{
             fontWeight: 400,
-            fontSize: "clamp(32px, 4vw, 48px)",
+            fontSize: "clamp(36px, 5vw, 64px)",
             lineHeight: 1.1,
             letterSpacing: "-0.015em",
             marginTop: 20,
-            maxWidth: 720,
+            maxWidth: 900,
             color: "var(--color-ink)",
           }}
         >
-          Guidance When You Need It.
+          {ia.headlineTop}
           <br />
-          Leadership When It <em className="italic font-normal">Matters.</em>
+          <em className="italic font-normal">{ia.headlineEm}</em>
         </h2>
-      </div>
-
-      <AnimateStagger staggerDelay={0.12} className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
-        {SERVICES_PAGE.advisory.cards.map((card) => (
-          <AnimateStaggerItem key={card.label}>
-            <div
-              className="bg-white rounded-[4px] border border-[#e0d8cc] transition-shadow duration-300 hover:shadow-[var(--shadow-card)] h-full"
-              style={{ padding: "40px 32px", borderTop: "3px solid var(--color-bronze)" }}
-            >
-              <span
-                className="block uppercase"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 11,
-                  fontWeight: 500,
-                  letterSpacing: "0.18em",
-                  color: "var(--color-bronze)",
-                }}
-              >
-                {card.label}
-              </span>
-              <h3
-                className="font-display mt-2"
-                style={{
-                  fontWeight: 400,
-                  fontSize: 28,
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.01em",
-                  color: "var(--color-ink)",
-                }}
-              >
-                {card.headline}
-              </h3>
-              <p
-                className="mt-4"
-                style={{
-                  fontSize: 14,
-                  lineHeight: 1.75,
-                  color: "var(--color-ash)",
-                }}
-              >
-                {card.body}
-              </p>
-              <ul className="mt-4 flex flex-col">
-                {card.list.map((item) => (
-                  <ServiceListItem key={item} size="small">
-                    {item}
-                  </ServiceListItem>
-                ))}
-              </ul>
-            </div>
-          </AnimateStaggerItem>
-        ))}
-      </AnimateStagger>
-    </Section>
-  );
-}
-
-/* ================================================================
-   SECTION 5C — WHO THIS IS FOR + CTA
-   ================================================================ */
-function AdvisoryWhoFor() {
-  const wf = SERVICES_PAGE.advisory.whoFor;
-  return (
-    <Section bg="var(--color-cream)" py="80px">
-      <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 lg:gap-16 items-start">
-        {/* Left — content + clients */}
-        <Animate variant="fadeLeft">
-          <div>
-            <SectionEyebrow>{wf.eyebrow}</SectionEyebrow>
-          <h2
-            className="font-display"
-            style={{
-              fontWeight: 400,
-              fontSize: "clamp(32px, 4vw, 48px)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.015em",
-              marginTop: 20,
-              color: "var(--color-ink)",
-              maxWidth: 480,
-            }}
-          >
-            {wf.headlineTop}
-            <br />
-            <em className="italic font-normal">{wf.headlineEm}</em>
-          </h2>
-          <div
-            className="mt-6"
-            style={{
-              fontSize: 16,
-              lineHeight: 1.8,
-              color: "var(--color-ash)",
-              maxWidth: 520,
-            }}
-          >
-            <p>{wf.body1}</p>
-            <p className="mt-5">{wf.body2}</p>
-          </div>
-
-          <ul className="mt-7 flex flex-col">
-            {wf.clients.map((c) => (
-              <ServiceListItem key={c}>{c}</ServiceListItem>
-            ))}
-          </ul>
-          </div>
-        </Animate>
-
-        {/* Right — quote card */}
-        <Animate variant="fadeRight" delay={0.1}>
-        <div
-          className="rounded-[4px] text-white"
+        <p
+          className="mx-auto"
           style={{
-            background: "var(--color-ink)",
-            padding: "48px 40px",
+            fontSize: 20,
+            fontWeight: 300,
+            lineHeight: 1.7,
+            color: "var(--color-ash)",
+            maxWidth: 680,
+            margin: "20px auto 0",
           }}
         >
-          <p
-            className="font-display"
-            style={{
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: 22,
-              lineHeight: 1.6,
-              color: "#ffffff",
-            }}
-          >
-            &ldquo;{wf.quoteText}&rdquo;
-          </p>
-          <p
-            className="font-display mt-3"
-            style={{
-              fontWeight: 300,
-              fontSize: 32,
-              lineHeight: 1.2,
-              color: "var(--color-bronze)",
-            }}
-          >
-            {wf.quoteHighlight}
-          </p>
+          {ia.subhead}
+        </p>
+      </Animate>
 
-          <div
-            aria-hidden="true"
-            style={{
-              width: "100%",
-              height: 1,
-              background: "rgba(255,255,255,0.15)",
-              margin: "32px 0",
-            }}
-          />
-
-          <p
-            style={{
-              fontSize: 14,
-              lineHeight: 1.7,
-              color: "rgba(255,255,255,0.6)",
-            }}
-          >
-            {wf.quoteBody}
+      <Animate
+        variant="fadeUp"
+        delay={0.1}
+        className="mx-auto"
+        style={{
+          marginTop: 48,
+          maxWidth: 760,
+          color: "var(--color-ash)",
+          fontSize: 16,
+          lineHeight: 1.8,
+        }}
+      >
+        {ia.introParagraphs.map((p, i) => (
+          <p key={i} className={i > 0 ? "mt-5" : ""}>
+            {p}
           </p>
+        ))}
 
-          <div className="mt-8">
-            <Button href="/contact" variant="primary" mode="light" fullWidth>
-              Schedule a Consultation
-            </Button>
-          </div>
+        <div
+          aria-hidden="true"
+          style={{
+            width: 60,
+            height: 1,
+            background: "var(--color-sand)",
+            margin: "40px auto",
+          }}
+        />
 
-          <p
-            className="text-center italic mt-4"
-            style={{
-              fontSize: 12,
-              color: "rgba(255,255,255,0.4)",
-            }}
-          >
-            {wf.caption}
-          </p>
+        <div className="text-center">
+          <Button href="/services/advisory" variant="primary">
+            Learn More About Advisory Services
+          </Button>
         </div>
-        </Animate>
-      </div>
+      </Animate>
     </Section>
   );
 }
 
-/* ================================================================
-   SECTION 6 — EXPERTISE BEYOND CONSTRUCTION
-   ================================================================ */
 function ExpertiseSection() {
   const e = SERVICES_PAGE.expertise;
   return (
@@ -727,7 +521,7 @@ function ExpertiseSection() {
 }
 
 /* ================================================================
-   SECTION 7 — FINAL CTA (bronze band)
+   SECTION 7 â FINAL CTA (bronze band)
    ================================================================ */
 function FinalCTA() {
   const c = SERVICES_PAGE.cta;
@@ -790,7 +584,7 @@ export default function ServicesPage() {
     <>
       <PageHero />
 
-      {/* Section 2 — anchor nav (no padding override; tighter) */}
+      {/* Section 2 â anchor nav (no padding override; tighter) */}
       <div className="bg-white" style={{ padding: "48px 0" }}>
         <div
           style={{
@@ -805,9 +599,7 @@ export default function ServicesPage() {
 
       <CustomHomes />
       <Renovations />
-      <AdvisoryIntro />
-      <AdvisoryCards />
-      <AdvisoryWhoFor />
+      <IndependentAdvisory />
       <ExpertiseSection />
       <FinalCTA />
     </>
