@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title:
     "About | Synergistic Development · Denver's Luxury Home Builder & Advisor",
   description:
-    "For more than 20 years, Shane Fable and Synergistic Development have helped Denver homeowners navigate custom homes, renovations, and complex residential projects with confidence.",
+    "For more than 20 years, Shane Fable and Synergistic Development have helped Denver homeowners navigate custom homes, renovations, and complex residential projects with confidence.", alternates: { canonical: "/about" },
 };
 
 /* ------------------------------------------------------------------
