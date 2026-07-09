@@ -74,19 +74,23 @@ export default function ContactForm() {
       return;
     }
 
-    setSubmitting(true);
-    /*
-     * TODO: Wire form submission to backend.
-     * Recommended options:
-     *  1. Next.js API route at /api/contact — sends email via Resend (resend.com)
-     *  2. Formspree (formspree.io) — simple POST endpoint, no backend needed
-     *  3. Netlify Forms — if hosting moves to Netlify
-     * Shane to confirm preferred email address for inquiries before wiring.
-     */
-    // Simulate async submit
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setSubmitted(true);
-    setSubmitting(false);
+        setSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setSubmitted(true);
+    } catch (err) {
+      setErrors({
+        description:
+          "Something went wrong submitting your inquiry. Please try again or email us directly.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const form = CONTACT.form;
