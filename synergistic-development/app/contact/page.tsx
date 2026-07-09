@@ -84,7 +84,7 @@ function PageHero() {
       <div className="relative h-full flex items-center justify-center text-center text-white px-6">
         <div className="max-w-[640px]">
           <Animate variant="fadeUp" delay={0} duration={0.7}>
-            <SectionEyebrow className="!text-[#b8965a]">
+            <SectionEyebrow hero>
               {CONTACT.hero.eyebrow}
             </SectionEyebrow>
           </Animate>
