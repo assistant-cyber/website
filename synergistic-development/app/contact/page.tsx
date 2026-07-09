@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title:
     "Start Your Project | Synergistic Development · Denver Custom Homes & Advisory",
   description:
-    "Ready to start a conversation? Contact Synergistic Development to discuss your custom home, renovation, or owner's representation project in Denver's most desirable neighborhoods.",
+    "Ready to start a conversation? Contact Synergistic Development to discuss your custom home, renovation, or owner's representation project in Denver's most desirable neighborhoods.", alternates: { canonical: "/contact" },
 };
 
 /* ------------------------------------------------------------------
