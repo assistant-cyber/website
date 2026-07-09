@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title:
     "Services | Synergistic Development Â· Custom Homes, Renovations & Advisory Â· Denver",
   description:
-    "Synergistic Development offers luxury custom home building, transformative renovations, and independent owner's representation services throughout Denver's most desirable neighborhoods.",
+    "Synergistic Development offers luxury custom home building, transformative renovations, and independent owner's representation services throughout Denver's most desirable neighborhoods.", alternates: { canonical: "/services" },
 };
 
 /* ------------------------------------------------------------------
