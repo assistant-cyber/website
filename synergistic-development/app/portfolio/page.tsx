@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title:
     "Portfolio | Synergistic Development · Custom Homes & Renovations · Denver",
   description:
-    "Explore Synergistic Development's portfolio of luxury custom homes and transformative renovations across Denver's most desirable neighborhoods — Cherry Creek, Highlands, and Lakewood Country Club.",
+    "Explore Synergistic Development's portfolio of luxury custom homes and transformative renovations across Denver's most desirable neighborhoods — Cherry Creek, Highlands, and Lakewood Country Club.", alternates: { canonical: "/portfolio" },
 };
 
 /* ------------------------------------------------------------------
