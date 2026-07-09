@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title:
     "The SD Experience | Synergistic Development · Our Process · Denver",
   description:
-    "A proven process built on transparency, communication, and accountability. Learn how Synergistic Development guides homeowners from concept through completion across custom homes, renovations, and advisory services.",
+    "A proven process built on transparency, communication, and accountability. Learn how Synergistic Development guides homeowners from concept through completion across custom homes, renovations, and advisory services.", alternates: { canonical: "/process" },
 };
 
 /* ------------------------------------------------------------------
