@@ -15,21 +15,33 @@ export const BRAND = {
   founder: "Shane Fable",
 } as const;
 
-export const NAV_LINKS = [
+export type NavLink = {
+  label: string;
+  href: string;
+  children?: ReadonlyArray<NavLink>;
+};
+
+export const NAV_LINKS: ReadonlyArray<NavLink> = [
   { label: "Home",       href: "/" },
   { label: "About",      href: "/about" },
-  { label: "Services",   href: "/services" },
+  {
+    label: "Services",
+    href: "/services",
+    children: [
+      { label: "Independent Advisory", href: "/services/advisory" },
+    ],
+  },
   { label: "Process",    href: "/process" },
   { label: "Portfolio",  href: "/portfolio" },
   { label: "Contact",    href: "/contact" },
-] as const;
+];
 
 export const SERVICES = [
   {
     number: "01",
-    title: "Custom Homes",
+    title: "Custom Homes & Development",
     body:
-      "Thoughtfully crafted homes designed around your lifestyle, vision, and long-term goals. From site selection through final walkthrough, we serve as your partner at every stage.",
+      "Thoughtfully crafted homes designed around your lifestyle, vision, and long-term goals. Whether building a one-of-a-kind custom residence for a homeowner or partnering with developers to deliver exceptional project management, exceptional craftsmanship, and transparent communication from site selection through final walkthrough.",
     href: "/services/custom-homes",
   },
   {
@@ -168,12 +180,6 @@ export const NEIGHBORHOODS = [
   "Highlands",
   "Sloan's Lake",
   "Littleton",
-  "Castle Pines",
-  "Castle Rock",
-  "Parker",
-  "Evergreen",
-  "Golden",
-  "Boulder",
 ] as const;
 
 export const STATS: ReadonlyArray<{
@@ -190,9 +196,9 @@ export const STATS: ReadonlyArray<{
     label: "Typical Project Range",
   },
   {
-    value: "Denver's Most",
-    label: "Desirable Neighborhoods",
-    detail: "Cherry Creek · Highlands · Bow Mar · Wash Park + more",
+    value: "Denver's Top",
+    label: "Neighborhoods",
+    detail: "Cherry Creek · Cherry Hills · Highlands · Bow Mar · Columbine Valley · Wash Park + more",
   },
 ];
 
@@ -217,7 +223,7 @@ export const SERVICES_PAGE = {
   },
 
   anchorNav: [
-    { number: "01", label: "Custom Homes", href: "#custom-homes" },
+    { number: "01", label: "Custom Homes & Development", href: "#custom-homes" },
     {
       number: "02",
       label: "Renovations & Additions",
@@ -225,8 +231,8 @@ export const SERVICES_PAGE = {
     },
     {
       number: "03",
-      label: "Owner's Representation & Advisory",
-      href: "#advisory",
+      label: "Independent Advisory",
+      href: "#independent-advisory",
     },
   ],
 
@@ -382,6 +388,96 @@ export const SERVICES_PAGE = {
     ],
   },
 
+  independentAdvisory: {
+    eyebrow: "Independent Construction Advisory Services",
+    headlineTop: "Independent Construction",
+    headlineEm: "Advisory Services",
+    subhead: "Expert Guidance—Whether or Not You Hire Us to Build",
+    introParagraphs: [
+      "Not every client hires Synergistic Development as their builder.",
+      "Many homeowners engage us as an independent advisor before purchasing a property, selecting a builder, reviewing construction bids, or throughout an active project. Whether you’re evaluating multiple contractors, already working with a builder, or simply want an experienced professional protecting your interests, we provide objective guidance every step of the way.",
+      "Architects represent the design. Builders represent the construction. Real estate agents represent the transaction. Who represents you?",
+    ],
+    quoteAttribution: "The case for independent representation",
+
+    servicesHeader: "Our Advisory Services",
+
+    phases: [
+      {
+        label: "Before You Build",
+        intro: "Make informed decisions before construction begins.",
+        items: [
+          "Builder and contractor selection",
+          "Independent review and comparison of multiple builder bids",
+          "Scope and pricing analysis",
+          "Budget validation and cost planning",
+          "Contract review and negotiation support",
+          "Property and feasibility evaluations before purchase",
+          "Design and pre-construction planning guidance",
+          "Value engineering and cost-saving recommendations",
+        ],
+      },
+      {
+        label: "During Construction",
+        intro:
+          "Independent oversight focused on protecting your investment. Whether your builder is Synergistic Development or another contractor, we provide experienced project oversight to help keep your project on budget, on schedule, and built to the agreed-upon standard.",
+        items: [
+          "Project site visits",
+          "Progress and milestone verification",
+          "Budget and cost monitoring",
+          "Change order review",
+          "Quality assurance observations",
+          "Payment application review",
+          "Contractor accountability",
+          "Architect and designer coordination",
+          "Issue identification and resolution",
+        ],
+      },
+      {
+        label: "Project Completion",
+        intro: "Protect your investment before final payment.",
+        items: [
+          "Punch list creation and oversight",
+          "Final quality review",
+          "Contractor closeout coordination",
+          "Warranty documentation review",
+          "Final cost reconciliation",
+          "Move-in and project transition support",
+        ],
+      },
+    ],
+  },
+
+  sameProcess: {
+    eyebrow: "For Advisory Clients",
+    headlineTop: "The Same Process.",
+    headlineEm: "A Different Role.",
+    body1:
+      "When you hire us as your owner’s representative — rather than your builder — the five-phase framework still applies. The difference is role in each phase.",
+    body2:
+      "Instead of managing construction, we manage your relationship with whoever is building. We review bids, evaluate contractors, monitor quality, review change orders, and ensure you have a trusted advocate on your side throughout the entire process.",
+    body3:
+      "For many clients, this service pays for itself many times over — through cost savings identified in the bid process, change orders avoided, and problems caught before they become expensive.",
+    col1Label: "Build Client",
+    col2Label: "Advisory Client",
+    rows: [
+      { col1: "SD manages construction", col2: "SD monitors your builder" },
+      {
+        col1: "SD holds all contracts",
+        col2: "You hold contracts, SD reviews them",
+      },
+      { col1: "SD leads trade partners", col2: "SD evaluates your trades" },
+      { col1: "SD oversees budget", col2: "SD audits your budget" },
+      { col1: "SD files permits", col2: "SD coordinates with your team" },
+      {
+        col1: "Single point of accountability",
+        col2: "Independent advocate on your side",
+      },
+    ],
+    primaryCta: { label: "Learn More About Advisory Services", href: "/services/advisory" },
+    secondaryCta: { label: "← Back to Services", href: "/services" },
+  },
+
   cta: {
     headlineTop: "Ready to Start the",
     headlineEm: "Conversation?",
@@ -409,7 +505,7 @@ export const PROCESS_PAGE = {
   hero: {
     eyebrow: "The SD Experience",
     headlineTop: "A Proven Process.",
-    headlineEm: "A Trusted Advisor.",
+    headlineEm: "Trusted Advisor.",
     subhead:
       "Every successful project begins long before construction starts. Whether you're building, renovating, or seeking independent guidance — our process is designed to protect your investment at every stage.",
     backgroundImage:
@@ -1019,13 +1115,13 @@ export const PORTFOLIO = {
     "Highlands",
     "Bow Mar",
     "Lakewood CC",
+    "Littleton",
+    "Columbine Valley",
     "Greenwood Village",
     "Bonnie Brae",
     "Hilltop",
     "Observatory Park",
     "Castle Pines",
-    "Evergreen",
-    "Boulder",
   ],
 
   cta: {
@@ -1087,8 +1183,8 @@ export const CONTACT = {
   },
 
   info: {
-    email: "info@synergisticdevelopment.com", // TODO: Confirm correct email address with Shane
-    phone: "(303) 000-0000", // TODO: Confirm phone number with Shane
+    email: "shane@sddenver.com",
+    phone: "(303) 910-7881",
     location: "Bow Mar, Colorado",
     locationSub: "Serving the Greater Denver Metro & Front Range",
     tagline: "Trusted Advisor. Exceptional Builder.",
@@ -1202,9 +1298,9 @@ export const ABOUT = {
     closing:
       "Today, Shane lives in Bow Mar, Colorado, with his wife and three children — and remains personally involved in every project Synergistic Development undertakes.",
     portraitImage:
-      "/projects/982-penn/hero/master_bed-01-982-s-pennsylvania-st-denver-large-021-29-2nd-floor-master-bedroom-1500x1000-72dpi.jpg",
+      "/images/site/shane/portrait.png",
     portraitAlt: "Shane Fable, Founder of Synergistic Development",
-    photoStatus: "awaiting-shane-photo",
+    photoStatus: "complete",
     credentials: [
       {
         label: "Education",
@@ -1217,7 +1313,7 @@ export const ABOUT = {
       },
       {
         label: "Based In",
-        lines: ["Bow Mar, Colorado", "Actively involved in", "every project"],
+        lines: ["Bow Mar, Colorado"],
       },
     ],
   },
@@ -1225,7 +1321,7 @@ export const ABOUT = {
   team: {
     eyebrow: "The Team",
     headlineTop: "The People Behind",
-    headlineEm: "Every Project",
+    headlineEm: "Every Project.",
     subhead:
       "Synergistic Development is supported by an established network of professionals who have collaborated on residential projects throughout Colorado for years.",
     body:
@@ -1288,13 +1384,14 @@ export const ABOUT = {
       "Our clients value expertise, transparency, and thoughtful execution. They are looking for more than a contractor — they want an experienced partner who can provide both strategic guidance and exceptional craftsmanship throughout the building process.",
     clients: [
       "Homeowners planning a custom home",
-      "Families planning a major renovation",
-      "Historic property owners",
-      "Out-of-state homeowners needing a trusted local advocate",
-      "Busy professionals and executives",
-      "Real estate investors",
-      "Homeowners evaluating a property prior to purchase",
-      "Clients seeking a second opinion on bids or contracts",
+      "Families planning a major renovation or addition",
+      "Residential developers seeking a trusted construction partner",
+      "Real estate investors evaluating development opportunities",
+      "Homeowners seeking owner's representation and construction consulting",
+      "Clients comparing builders, bids, budgets, and contracts",
+      "Homebuyers evaluating a property before purchase or redevelopment",
+      "Out-of-state homeowners needing local project oversight",
+      "Busy professionals seeking a trusted expert to manage the building process",
     ],
     note: "Projects typically exceed $500,000 in construction value.",
   },
