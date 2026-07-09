@@ -96,7 +96,7 @@ function PageHero() {
       >
         <div className="max-w-[640px]">
           <Animate variant="fadeUp" delay={0} duration={0.7}>
-            <SectionEyebrow className="!text-[#b8965a]">
+            <SectionEyebrow hero>
               {PROCESS_PAGE.hero.eyebrow}
             </SectionEyebrow>
           </Animate>
